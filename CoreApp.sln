@@ -4,11 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreApp", "CoreApp\CoreApp.csproj", "{F804C8B5-F3C1-4AB2-A4FD-E9B2CB180BB7}"
-	ProjectSection(ProjectDependencies) = postProject
-		{3C02476E-94EE-4038-A998-2CE080689A32} = {3C02476E-94EE-4038-A998-2CE080689A32}
-		{D0031B81-AE8A-4C1E-BCC7-8557A97174ED} = {D0031B81-AE8A-4C1E-BCC7-8557A97174ED}
-		{AE65BEDF-407B-4CDE-BED0-C2B1174B698A} = {AE65BEDF-407B-4CDE-BED0-C2B1174B698A}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreEntities", "CoreEntities\CoreEntities.csproj", "{D0031B81-AE8A-4C1E-BCC7-8557A97174ED}"
 EndProject

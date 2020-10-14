@@ -6,6 +6,10 @@ namespace CoreApp.Models
 {
     public partial class CoreContext : DbContext
     {
+        public CoreContext()
+        {
+        }
+
         public CoreContext(DbContextOptions<CoreContext> options)
             : base(options)
         {
@@ -20,7 +24,7 @@ namespace CoreApp.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=PELAYO-FAMILY\\SQLEXPRESS2017;Database=capstone;user id=capstoneuser1;password=capstoneuser1;");
+                optionsBuilder.UseSqlServer("Server=PELAYO-FAMILY\\SQLEXPRESS2017;Database=capstone;user id=capstoneuser1;password=capstoneuser1;Trusted_Connection=True;");
             }
         }
 
@@ -78,6 +82,10 @@ namespace CoreApp.Models
 
                 entity.Property(e => e.Name)
                     .HasMaxLength(60)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Photo)
+                    .HasMaxLength(200)
                     .IsUnicode(false);
             });
 

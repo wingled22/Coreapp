@@ -9,22 +9,22 @@ using CoreApp.Models;
 
 namespace CoreApp.Controllers
 {
-    public class StoresController : Controller
+    public class CategoriesController : Controller
     {
         private readonly CoreContext _context;
 
-        public StoresController(CoreContext context)
+        public CategoriesController(CoreContext context)
         {
             _context = context;
         }
 
-        // GET: Stores
+        // GET: Categories
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Store.ToListAsync());
+            return View(await _context.Category.ToListAsync());
         }
 
-        // GET: Stores/Details/5
+        // GET: Categories/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +32,39 @@ namespace CoreApp.Controllers
                 return NotFound();
             }
 
-            var store = await _context.Store
+            var category = await _context.Category
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (store == null)
+            if (category == null)
             {
                 return NotFound();
             }
 
-            return View(store);
+            return View(category);
         }
 
-        // GET: Stores/Create
+        // GET: Categories/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Stores/Create
+        // POST: Categories/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Store store)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description")] Category category)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(store);
+                _context.Add(category);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(store);
+            return View(category);
         }
 
-        // GET: Stores/Edit/5
+        // GET: Categories/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +72,22 @@ namespace CoreApp.Controllers
                 return NotFound();
             }
 
-            var store = await _context.Store.FindAsync(id);
-            if (store == null)
+            var category = await _context.Category.FindAsync(id);
+            if (category == null)
             {
                 return NotFound();
             }
-            return View(store);
+            return View(category);
         }
 
-        // POST: Stores/Edit/5
+        // POST: Categories/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Address,Photo")] Store store)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description")] Category category)
         {
-            if (id != store.Id)
+            if (id != category.Id)
             {
                 return NotFound();
             }
@@ -96,12 +96,12 @@ namespace CoreApp.Controllers
             {
                 try
                 {
-                    _context.Update(store);
+                    _context.Update(category);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!StoreExists(store.Id))
+                    if (!CategoryExists(category.Id))
                     {
                         return NotFound();
                     }
@@ -112,10 +112,10 @@ namespace CoreApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(store);
+            return View(category);
         }
 
-        // GET: Stores/Delete/5
+        // GET: Categories/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,30 +123,30 @@ namespace CoreApp.Controllers
                 return NotFound();
             }
 
-            var store = await _context.Store
+            var category = await _context.Category
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (store == null)
+            if (category == null)
             {
                 return NotFound();
             }
 
-            return View(store);
+            return View(category);
         }
 
-        // POST: Stores/Delete/5
+        // POST: Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var store = await _context.Store.FindAsync(id);
-            _context.Store.Remove(store);
+            var category = await _context.Category.FindAsync(id);
+            _context.Category.Remove(category);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool StoreExists(int id)
+        private bool CategoryExists(int id)
         {
-            return _context.Store.Any(e => e.Id == id);
+            return _context.Category.Any(e => e.Id == id);
         }
     }
 }

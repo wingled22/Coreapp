@@ -5,10 +5,15 @@ namespace CoreApp.Models
 {
     public partial class Category
     {
-        public int CatagoryId { get; set; }
-        public string Name { get; set; }
-        public int? StoreId { get; set; }
+        public Category()
+        {
+            Products = new HashSet<Products>();
+        }
 
-        public virtual Store Store { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+
+        public virtual ICollection<Products> Products { get; set; }
     }
 }

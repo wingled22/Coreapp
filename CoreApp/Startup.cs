@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CoreApp.Models;
+using CoreApp.Entities;
+using CoreApp.Services;
+//using CoreApp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,9 +28,14 @@ namespace CoreApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddRazorPages();
 
-            services.AddDbContext<CoreContext>(options =>
+            services.AddDbContext<capstoneContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<IStoreRepository, StoreRepository>();
+            services.AddTransient<IProductRepository, ProductRepository>();
 
         }
 

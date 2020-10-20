@@ -1,33 +1,31 @@
-﻿using System;
+﻿using CoreApp.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace CoreApp.Entities
+namespace CoreApp.Models
 {
-    public partial class Products
+    public class ProductViewModel
     {
-        public Products()
-        {
-            Stocks = new HashSet<Stocks>();
-        }
-
+        [Required]
         public int Id { get; set; }
-        [Required]
+   
         public string Name { get; set; }
-        [Required]
         public string Description { get; set; }
-        [Required]
         public decimal Price { get; set; }
-        [Required]
         public string QuantityPerUnit { get; set; }
-        [Required]
         public int CategoryId { get; set; }
-        [Required]
         public int StoreId { get; set; }
         public int? Available { get; set; }
+        public int StockId { get; set; }
+        public int TotalStocks { get; set; }
+        [Required]
+        public int StocksToAdd { get; set; }
 
+        public virtual Products Product { get; set; }
         public virtual Category Category { get; set; }
         public virtual Store Store { get; set; }
-        public virtual ICollection<Stocks> Stocks { get; set; }
     }
 }

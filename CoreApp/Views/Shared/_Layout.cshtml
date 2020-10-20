@@ -40,11 +40,9 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            <div id="notification" class="alert alert-success alert-dismissible fade" role="alert">
-                <strong>Success!</strong> Saving changes successful.
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+            <div class="alert alert-warning alert-dismissible fade ">
+                <strong>Ooopss!</strong> The system run into an unexpected error.
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
             </div>
             @RenderBody()
         </main>

@@ -1,0 +1,23 @@
+﻿@model IEnumerable<CoreApp.Entities.Store>
+
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<h1>Stores</h1>
+
+
+<div id="placeholder"></div>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#addCategory" data-url="@Url.Action("Create")">
+    Add New
+</button>
+<br />
+
+@await Html.PartialAsync("_TablePartial", Model)
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,30 @@
+﻿@model CoreApp.Entities.Stocks
+<!-- Modal -->
+<div class="modal fade" id="addCategory" tabindex="-1" role="dialog" aria-labelledby="addCategoryLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addCategoryLabel">Total Stocks</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <dl class="row">
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.TotalStocks)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.TotalStocks)
+                        </dd>
+                    </dl>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-save="modal">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

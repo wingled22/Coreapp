@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using CoreApp.Services;
 using CoreApp.Entities;
+using CoreApp.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoreApp.Controllers
 {
-    public class CategoryController : Controller
+    public class StoreController : Controller
     {
+      
         private readonly capstoneContext _context;
-        private readonly ICategoryRepository _repository;
+        private readonly IStoreRepository _repository;
 
-        public CategoryController(capstoneContext context, ICategoryRepository repository)
+        public StoreController(capstoneContext context, IStoreRepository repository)
         {
             _context = context;
             _repository = repository;
@@ -24,35 +24,35 @@ namespace CoreApp.Controllers
         // GET: Category
         public IActionResult Index()
         {
-            var categoriesFromRepository = _repository.GetCategories().ToList();
+            var storesFromRepository = _repository.GetStores().ToList();
             var isAjax = Request.Headers["X-Requested-With"] == "XMLHttpRequest";
             if (isAjax)
             {
-                return PartialView("_TablePartial", categoriesFromRepository);
+                return PartialView("_TablePartial", storesFromRepository);
             }
 
-            return View(categoriesFromRepository);
+            return View(storesFromRepository);
         }
 
         //this will return a partialView which contain the modal
         [HttpGet]
         public IActionResult Create()
         {
-            Category category = new Category();
-            return PartialView("_CategoryModalPartial", category);
+            Store store = new Store();
+            return PartialView("_CreateStoreModalPartial", store);
         }
 
         [HttpPost]
-        public IActionResult Create(Category category)
+        public IActionResult Create(Store store)
         {
             if (ModelState.IsValid)
             {
-                _repository.Save(category);
+                _repository.Save(store);
                 _context.SaveChanges();
-                return PartialView("_CategoryModalPartial", category);
+                return PartialView("_CreateStoreModalPartial", store);
             }
 
-            return PartialView("_CategoryModalPartial", category);
+            return PartialView("_CreateStoreModalPartial", store);
 
         }
 
@@ -60,12 +60,12 @@ namespace CoreApp.Controllers
         [HttpGet]
         public IActionResult Detail(int id)
         {
-            var category = _repository.GetCategory(id);
+            var category = _repository.GetStore(id);
             if (category == null)
             {
                 return NotFound();
             }
-            return PartialView("_DetailCategoryModalPartial", category);
+            return PartialView("_DetailStoreModalPartial", category);
         }
 
 
@@ -73,18 +73,18 @@ namespace CoreApp.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var category = _repository.GetCategory(id);
+            var category = _repository.GetStore(id);
             if (category == null)
             {
                 return NotFound();
             }
-            return PartialView("_EditCategoryModalPartial", category);
+            return PartialView("_EditStoreModalPartial", category);
         }
 
         [HttpPost]
-        public IActionResult Edit(int id, Category category)
+        public IActionResult Edit(int id, Store store)
         {
-            if (id != category.Id)
+            if (id != store.Id)
             {
                 return NotFound();
             }
@@ -93,13 +93,13 @@ namespace CoreApp.Controllers
             {
                 try
                 {
-                    _repository.Update(category);
+                    _repository.Update(store);
                     _context.SaveChanges();
-                    return PartialView("_EditCategoryModalPartial", category);
+                    return PartialView("_EditStoreModalPartial", store);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!_repository.CategoryExists(category.Id))
+                    if (!_repository.StoreExists(store.Id))
                     {
                         return NotFound();
                     }
@@ -108,34 +108,33 @@ namespace CoreApp.Controllers
                         throw;
                     }
                 }
-               
             }
-    
-            return PartialView("_EditCategoryModalPartial", category);
+
+            return PartialView("_EditStoreModalPartial", store);
         }
 
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            var category = _repository.GetCategory(id);
+            var category = _repository.GetStore(id);
             if (category == null)
             {
                 return NotFound();
             }
-            return PartialView("_DeleteCategoryModalPartial", category);
+            return PartialView("_DeleteStoreModalPartial", category);
         }
 
         [HttpPost]
-        public IActionResult Delete(Category category)
+        public IActionResult Delete(Store store)
         {
-            var categoryFromRepository = _repository.GetCategory(category.Id);
-            if (categoryFromRepository == null)
+            var storeFromRepository = _repository.GetStore(store.Id);
+            if (storeFromRepository == null)
             {
                 return NotFound();
             }
-            _repository.Delete(categoryFromRepository.Id);
+            _repository.Delete(storeFromRepository.Id);
             _context.SaveChanges();
-            return PartialView("_DeleteCategoryModalPartial", category);
+            return PartialView("_DeleteStoreModalPartial", store);
         }
 
     }

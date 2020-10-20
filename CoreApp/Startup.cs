@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using CoreApp.Entities;
 using CoreApp.Services;
 //using CoreApp.Services;
@@ -27,8 +28,11 @@ namespace CoreApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //add automapper
+            services.AddAutoMapper(typeof(Startup));
+
             services.AddControllersWithViews();
-            services.AddRazorPages();
+            //services.AddRazorPages();
 
             services.AddDbContext<capstoneContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));

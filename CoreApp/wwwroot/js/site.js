@@ -77,6 +77,11 @@ $(function () {
                 });
 
             }
+        }).fail(function(error) {
+            //Ajax request failed.
+            //var errorMessage = xhr.status + ': ' + xhr.statusText
+            //alert('Error - ' + errorMessage);
+            $('.alert').show();
         });
     });
 })

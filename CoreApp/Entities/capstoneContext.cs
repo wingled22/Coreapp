@@ -17,6 +17,8 @@ namespace CoreApp.Entities
 
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Products> Products { get; set; }
+        public virtual DbSet<Stocks> Stocks { get; set; }
+        public virtual DbSet<StocksHistory> StocksHistory { get; set; }
         public virtual DbSet<Store> Store { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -72,6 +74,20 @@ namespace CoreApp.Entities
                     .HasForeignKey(d => d.StoreId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Products_Store");
+            });
+
+            modelBuilder.Entity<Stocks>(entity =>
+            {
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.Stocks)
+                    .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Stocks_Stocks");
+            });
+
+            modelBuilder.Entity<StocksHistory>(entity =>
+            {
+                entity.Property(e => e.DateAdded).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<Store>(entity =>

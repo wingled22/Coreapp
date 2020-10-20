@@ -1,0 +1,77 @@
+﻿@model IEnumerable<CoreApp.Entities.Products>
+
+
+<table id="tableElement" class="table" data-url="@Url.Action("Index")">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QuantityPerUnit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Available)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Store)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QuantityPerUnit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Available)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Store.Name)
+                </td>
+                <td>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#addCategory" data-url="@Url.Action($"Edit/{item.Id}")">
+                        Update
+                    </button> |
+                    <button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#addCategory" data-url="@Url.Action($"AddStock/{item.Id}")">
+                        AddStocks
+                    </button>
+                    <button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#addCategory" data-url="@Url.Action($"StockDetails/{item.Id}")">
+                        View Stocks
+                    </button>|
+                    <button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#addCategory" data-url="@Url.Action($"Detail/{item.Id}")">
+                        Detail
+                    </button> |
+                    <button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#addCategory" data-url="@Url.Action($"Delete/{item.Id}")">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

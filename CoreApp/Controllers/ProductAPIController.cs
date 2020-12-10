@@ -13,7 +13,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CoreApp.Controllers
 {
-    public class ProductController : Controller
+    [Route("api/Product")]
+    public class ProductAPIController : Controller
     {
       
         private readonly capstoneContext _context;
@@ -22,7 +23,7 @@ namespace CoreApp.Controllers
         private readonly IStoreRepository _storeRepository;
         private readonly IMapper _mapper;
 
-        public ProductController(capstoneContext context, IProductRepository repository, ICategoryRepository categoryRepository, IStoreRepository storeRepository, IMapper mapper)
+        public ProductAPIController(capstoneContext context, IProductRepository repository, ICategoryRepository categoryRepository, IStoreRepository storeRepository, IMapper mapper)
         {
             _context = context;
             _repository = repository;
@@ -31,31 +32,9 @@ namespace CoreApp.Controllers
             _mapper = mapper;
         }
 
-        //[Route('api/getpro')]
+        
 
-        // GET: Category
-        public IActionResult Index()
-        {
-            var productsFromRepository = _repository.GetProducts().ToList();
-            //var productDto = _mapper.Map<ProductProfile>(productsFromRepository);
-            var isAjax = Request.Headers["X-Requested-With"] == "XMLHttpRequest";
-            if (isAjax)
-            {
-                return PartialView("_TablePartial", productsFromRepository);
-            }
-
-            return View(productsFromRepository);
-        }
-
-        //this will return a partialView which contain the modal
-        [HttpGet]
-        public IActionResult Create()
-        {
-            ViewData["CategoryId"] = new SelectList(_categoryRepository.GetCategories(), "Id", "Name");
-            ViewData["StoreId"] = new SelectList(_storeRepository.GetStores(), "Id", "Name");
-            Products products = new Products();
-            return PartialView("_CreateProductModalPartial", products);
-        }
+     
 
         [HttpPost]
         public IActionResult Create(Products product)
@@ -75,15 +54,20 @@ namespace CoreApp.Controllers
         }
 
 
-        [HttpGet]
-        public IActionResult Detail(int id)
+        [HttpGet()]
+        public IActionResult GetProduct(int id)
         {
             var product = _repository.GetProduct(id);
             if (product == null)
             {
                 return NotFound();
             }
-            return PartialView("_DetailProductModalPartial", product);
+            return OK(product);
+        }
+
+        private IActionResult OK(Products product)
+        {
+            throw new NotImplementedException();
         }
 
 

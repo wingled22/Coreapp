@@ -6,25 +6,59 @@
 
   <ItemGroup>
     <Compile Remove="API\**" />
+    <Compile Remove="Areas\Account\**" />
     <Content Remove="API\**" />
+    <Content Remove="Areas\Account\**" />
     <EmbeddedResource Remove="API\**" />
+    <EmbeddedResource Remove="Areas\Account\**" />
     <None Remove="API\**" />
+    <None Remove="Areas\Account\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Models\Category.cs" />
     <Compile Remove="Models\CoreContext.cs" />
-    <Compile Remove="Models\Products.cs" />
-    <Compile Remove="Models\Store.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Category\Index.cshtml" />
+    <None Include="Views\Category\_CategoryModalPartial.cshtml" />
+    <None Include="Views\Category\_DeleteCategoryModalPartial.cshtml" />
+    <None Include="Views\Category\_DetailCategoryModalPartial.cshtml" />
+    <None Include="Views\Category\_EditCategoryModalPartial.cshtml" />
+    <None Include="Views\Category\_TablePartial.cshtml" />
+    <None Include="Views\Home\Index.cshtml" />
+    <None Include="Views\Home\Privacy.cshtml" />
+    <None Include="Views\Product\Index.cshtml" />
+    <None Include="Views\Product\_CreateProductModalPartial.cshtml" />
+    <None Include="Views\Product\_DeleteProductModalPartial.cshtml" />
+    <None Include="Views\Product\_DetailProductModalPartial.cshtml" />
+    <None Include="Views\Product\_DetailStocksModalPartial.cshtml" />
+    <None Include="Views\Product\_EditProductModalPartial.cshtml" />
+    <None Include="Views\Product\_TablePartial.cshtml" />
+    <None Include="Views\Product\_UpdateStocksModalPartial.cshtml" />
+    <None Include="Views\Shared\Error.cshtml" />
+    <None Include="Views\Shared\_Layout.cshtml" />
+    <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
+    <None Include="Views\Store\Index.cshtml" />
+    <None Include="Views\Store\_CreateStoreModalPartial.cshtml" />
+    <None Include="Views\Store\_DeleteStoreModalPartial.cshtml" />
+    <None Include="Views\Store\_DetailStoreModalPartial.cshtml" />
+    <None Include="Views\Store\_EditStoreModalPartial.cshtml" />
+    <None Include="Views\Store\_TablePartial.cshtml" />
+    <None Include="Views\_ViewImports.cshtml" />
+    <None Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.9">
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.10">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -32,12 +66,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Views\Category\Index.cshtml" />
-    <None Include="Views\Category\_CategoryModalPartial.cshtml" />
+    <Folder Include="Areas\" />
+    <Folder Include="Areas\Shop\Controllers\" />
+    <Folder Include="Areas\Shop\Data\" />
+    <Folder Include="Areas\Shop\Models\" />
+    <Folder Include="Areas\Shop\Views\" />
   </ItemGroup>
 
 </Project>

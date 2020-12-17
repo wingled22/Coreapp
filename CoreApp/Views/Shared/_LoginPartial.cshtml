@@ -1,0 +1,23 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor httpContextAccessor
+
+@if (httpContextAccessor.HttpContext.Session.GetString("isLogIn") == "true")
+{
+    <ul class="navbar-nav">
+        <li  class="nav-item"><a href="#" class="nav-link text-dark">Hello, @httpContextAccessor.HttpContext.Session.GetString("Fullname")!</a></li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Account" asp-action="Logout">Log out</a>
+        </li>
+    </ul>
+}
+else 
+{
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Sign Up</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Log In</a>
+        </li>
+    </ul>
+}

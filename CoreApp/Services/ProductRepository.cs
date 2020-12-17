@@ -28,18 +28,6 @@ namespace CoreApp.Services
             return _capstoneContext.Products.Include(p => p.Category).Include(p => p.Store).ToList();
         }
 
-        //public IEnumerable<ProductDto> GetProductDTO()
-        //{
-     
-
-        //    var productDto = new List<ProductDto>();
-        //    var prod = _capstoneContext.Products.Include(p => p.Category).Include(p => p.Store).ToList();
-            
-        //    pro
-
-        //    return ;
-        //}
-
         //get specific by id
         public Products GetProduct(int id)
         {
@@ -70,47 +58,47 @@ namespace CoreApp.Services
             _capstoneContext.Products.Remove(productFromRepository);
         }
 
-        public void AddStocks(ProductViewModel productDto) {
+        //public void AddStocks(ProductViewModel productDto) {
 
-            var stocksToBeAdded = productDto.StocksToAdd;
-            var productId = productDto.Id;
+        //    var stocksToBeAdded = productDto.StocksToAdd;
+        //    var productId = productDto.Id;
 
-            bool stockExist = _capstoneContext.Stocks.Any(p => p.ProductId == productId);
-            if (!stockExist)
-            {
-                Stocks stockToAdd = new Stocks() { ProductId = productId, TotalStocks = 0 };
-                _capstoneContext.Stocks.Add(stockToAdd);
-                _capstoneContext.SaveChanges();
-                var recentAddedStock = _capstoneContext.Stocks.OrderByDescending(p => p.Id).FirstOrDefault();
+        //    bool stockExist = _capstoneContext.Stocks.Any(p => p.ProductId == productId);
+        //    if (!stockExist)
+        //    {
+        //        aStocks stockToAdd = new aStocks() { ProductId = productId, TotalStocks = 0 };
+        //        _capstoneContext.Stocks.Add(stockToAdd);
+        //        _capstoneContext.SaveChanges();
+        //        var recentAddedStock = _capstoneContext.Stocks.OrderByDescending(p => p.Id).FirstOrDefault();
 
-                StocksHistory stocksHistory = new StocksHistory() { StockId = recentAddedStock.Id, DateAdded = DateTime.Now };
-                _capstoneContext.StocksHistory.Update(stocksHistory);
-                _capstoneContext.SaveChanges();
+        //        aStocksHistory stocksHistory = new aStocksHistory() { StockId = recentAddedStock.Id, DateAdded = DateTime.Now };
+        //        _capstoneContext.StocksHistory.Update(stocksHistory);
+        //        _capstoneContext.SaveChanges();
 
-                recentAddedStock.TotalStocks = recentAddedStock.TotalStocks + stocksToBeAdded;
-                _capstoneContext.Stocks.Update(recentAddedStock);
-            }
-            else
-            {
-                var recentAddedStock = _capstoneContext.Stocks.Where(p => p.ProductId == productId).OrderByDescending(p => p.Id).FirstOrDefault();
+        //        recentAddedStock.TotalStocks = recentAddedStock.TotalStocks + stocksToBeAdded;
+        //        _capstoneContext.Stocks.Update(recentAddedStock);
+        //    }
+        //    else
+        //    {
+        //        var recentAddedStock = _capstoneContext.Stocks.Where(p => p.ProductId == productId).OrderByDescending(p => p.Id).FirstOrDefault();
 
-                StocksHistory stocksHistory = new StocksHistory() { StockId = recentAddedStock.Id, DateAdded = DateTime.Now };
-                _capstoneContext.StocksHistory.Update(stocksHistory);
-                _capstoneContext.SaveChanges();
+        //        aStocksHistory stocksHistory = new aStocksHistory() { StockId = recentAddedStock.Id, DateAdded = DateTime.Now };
+        //        _capstoneContext.StocksHistory.Update(stocksHistory);
+        //        _capstoneContext.SaveChanges();
 
-                recentAddedStock.TotalStocks = recentAddedStock.TotalStocks + stocksToBeAdded;
-                _capstoneContext.Stocks.Update(recentAddedStock);
-            }
+        //        recentAddedStock.TotalStocks = recentAddedStock.TotalStocks + stocksToBeAdded;
+        //        _capstoneContext.Stocks.Update(recentAddedStock);
+        //    }
            
 
 
 
             
 
-        }
+        //}
 
         public Stocks GetStocks(int id) {
-            return _capstoneContext.Stocks.Where(p => p.ProductId == id).FirstOrDefault();
+            return _capstoneContext.Stocks.Where(p => p.Product == id).FirstOrDefault();
         }
     }
 }

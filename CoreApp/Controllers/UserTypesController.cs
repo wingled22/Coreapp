@@ -9,23 +9,22 @@ using CoreApp.Entities;
 
 namespace CoreApp.Controllers
 {
-    public class ProdController : Controller
+    public class UserTypesController : Controller
     {
         private readonly capstoneContext _context;
 
-        public ProdController(capstoneContext context)
+        public UserTypesController(capstoneContext context)
         {
             _context = context;
         }
 
-        // GET: Prod
+        // GET: UserTypes
         public async Task<IActionResult> Index()
         {
-            var capstoneContext = _context.Products.Include(p => p.Category).Include(p => p.Store);
-            return View(await capstoneContext.ToListAsync());
+            return View(await _context.UserType.ToListAsync());
         }
 
-        // GET: Prod/Details/5
+        // GET: UserTypes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,45 +32,39 @@ namespace CoreApp.Controllers
                 return NotFound();
             }
 
-            var products = await _context.Products
-                .Include(p => p.Category)
-                .Include(p => p.Store)
+            var userType = await _context.UserType
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (products == null)
+            if (userType == null)
             {
                 return NotFound();
             }
 
-            return View(products);
+            return View(userType);
         }
 
-        // GET: Prod/Create
+        // GET: UserTypes/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Description");
-            ViewData["StoreId"] = new SelectList(_context.Store, "Id", "Address");
             return View();
         }
 
-        // POST: Prod/Create
+        // POST: UserTypes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,QuantityPerUnit,CategoryId,StoreId,Available")] Products products)
+        public async Task<IActionResult> Create([Bind("Id,Name")] UserType userType)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(products);
+                _context.Add(userType);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Description", products.CategoryId);
-            ViewData["StoreId"] = new SelectList(_context.Store, "Id", "Address", products.StoreId);
-            return View(products);
+            return View(userType);
         }
 
-        // GET: Prod/Edit/5
+        // GET: UserTypes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -79,24 +72,22 @@ namespace CoreApp.Controllers
                 return NotFound();
             }
 
-            var products = await _context.Products.FindAsync(id);
-            if (products == null)
+            var userType = await _context.UserType.FindAsync(id);
+            if (userType == null)
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Description", products.CategoryId);
-            ViewData["StoreId"] = new SelectList(_context.Store, "Id", "Address", products.StoreId);
-            return View(products);
+            return View(userType);
         }
 
-        // POST: Prod/Edit/5
+        // POST: UserTypes/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,QuantityPerUnit,CategoryId,StoreId,Available")] Products products)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] UserType userType)
         {
-            if (id != products.Id)
+            if (id != userType.Id)
             {
                 return NotFound();
             }
@@ -105,12 +96,12 @@ namespace CoreApp.Controllers
             {
                 try
                 {
-                    _context.Update(products);
+                    _context.Update(userType);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductsExists(products.Id))
+                    if (!UserTypeExists(userType.Id))
                     {
                         return NotFound();
                     }
@@ -121,12 +112,10 @@ namespace CoreApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Description", products.CategoryId);
-            ViewData["StoreId"] = new SelectList(_context.Store, "Id", "Address", products.StoreId);
-            return View(products);
+            return View(userType);
         }
 
-        // GET: Prod/Delete/5
+        // GET: UserTypes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -134,32 +123,30 @@ namespace CoreApp.Controllers
                 return NotFound();
             }
 
-            var products = await _context.Products
-                .Include(p => p.Category)
-                .Include(p => p.Store)
+            var userType = await _context.UserType
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (products == null)
+            if (userType == null)
             {
                 return NotFound();
             }
 
-            return View(products);
+            return View(userType);
         }
 
-        // POST: Prod/Delete/5
+        // POST: UserTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var products = await _context.Products.FindAsync(id);
-            _context.Products.Remove(products);
+            var userType = await _context.UserType.FindAsync(id);
+            _context.UserType.Remove(userType);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductsExists(int id)
+        private bool UserTypeExists(int id)
         {
-            return _context.Products.Any(e => e.Id == id);
+            return _context.UserType.Any(e => e.Id == id);
         }
     }
 }

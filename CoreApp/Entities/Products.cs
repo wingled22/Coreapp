@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace CoreApp.Entities
 {
@@ -12,22 +11,18 @@ namespace CoreApp.Entities
         }
 
         public int Id { get; set; }
-        [Required]
         public string Name { get; set; }
-        [Required]
         public string Description { get; set; }
-        [Required]
         public decimal Price { get; set; }
-        [Required]
         public string QuantityPerUnit { get; set; }
-        [Required]
-        public int CategoryId { get; set; }
-        [Required]
-        public int StoreId { get; set; }
+        public int Category { get; set; }
+        public int Store { get; set; }
         public int? Available { get; set; }
+        public int? UserId { get; set; }
 
-        public virtual Category Category { get; set; }
-        public virtual Store Store { get; set; }
+        public virtual Category CategoryNavigation { get; set; }
+        public virtual Store StoreNavigation { get; set; }
+        public virtual User User { get; set; }
         public virtual ICollection<Stocks> Stocks { get; set; }
     }
 }

@@ -168,12 +168,12 @@ namespace CoreApp.Controllers
             return PartialView("_UpdateStocksModalPartial", productDto);
         }
 
-        [HttpPost]
-        public IActionResult AddStock(ProductViewModel productDto) {
-            _repository.AddStocks(productDto);
-            _context.SaveChanges();
-            return PartialView("_UpdateStocksModalPartial", productDto);
-        }
+        //[HttpPost]
+        //public IActionResult AddStock(ProductViewModel productDto) {
+        //    _repository.AddStocks(productDto);
+        //    _context.SaveChanges();
+        //    return PartialView("_UpdateStocksModalPartial", productDto);
+        //}
 
         [HttpGet]
         public IActionResult StockDetails(int id) 

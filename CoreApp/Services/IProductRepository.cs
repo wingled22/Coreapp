@@ -20,7 +20,7 @@ namespace CoreApp.Services
         void Update(Products products);
 
         void Delete(int id);
-        void AddStocks(ProductViewModel productDto);
+        //void AddStocks(ProductViewModel productDto);
 
         Stocks GetStocks(int id);
 

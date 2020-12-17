@@ -4,15 +4,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using CoreApp.Entities;
+using CoreApp.Models;
 using CoreApp.Services;
+using Microsoft.AspNetCore.Identity;
 //using CoreApp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Http;
 
 namespace CoreApp
 {
@@ -33,13 +37,29 @@ namespace CoreApp
 
             services.AddControllersWithViews();
             //services.AddRazorPages();
+            
+            //add this code for session
+            services.AddDistributedMemoryCache();//To Store session in Memory, This is default implementation of IDistributedCache 
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(60);//I set the time to 60 minutes
+            });
+
+
+            //services.AddIdentity<UserRegistrationModel, IdentityRole>();
 
             services.AddDbContext<capstoneContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+
+            services.AddScoped<IAccountRepository, AccountRepository>();
+
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IStoreRepository, StoreRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
+
+            //register to access session variables in non controller class
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<AppSessionManager>();
 
         }
 
@@ -58,13 +78,20 @@ namespace CoreApp
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            
             app.UseRouting();
 
             app.UseAuthorization();
 
+            //add this code for session
+            app.UseCookiePolicy();
+            app.UseSession();
+            
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                    name: "areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
